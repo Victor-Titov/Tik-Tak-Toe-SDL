@@ -20,7 +20,7 @@ void improveRenderer() {
 		cout << "SDL Renderer imprude failed" << SDL_GetError();
 	}
 
-	SDL_RenderSetLogicalSize(MainRenderer, 1920, 1200);
+	SDL_RenderSetLogicalSize(MainRenderer, 601, 601);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
 
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
 	
 	SDL_Init(SDL_INIT_EVERYTHING);
 	
-	MainWindow = SDL_CreateWindow("First SDL Project", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1200, 0);
+	MainWindow = SDL_CreateWindow("First SDL Project", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 601, 601, 0);
 	
 
 
@@ -68,7 +68,16 @@ int main(int argc, char* argv[]){
 
 	//improve Renderer
 	improveRenderer();
-	//SDL_RenderDrawLine(MainRenderer, 480, 360, 480, 720);
+	SDL_SetRenderDrawColor(MainRenderer, 255, 255, 255, 200);
+
+	SDL_RenderDrawLine(MainRenderer, 0, 0, 0, 600);
+	SDL_RenderDrawLine(MainRenderer, 600, 0, 600, 600);
+	SDL_RenderDrawLine(MainRenderer, 0, 0, 600, 0);
+	SDL_RenderDrawLine(MainRenderer, 0, 600, 600, 600);
+
+	
+
+	
 	SDL_RenderPresent(MainRenderer);
 	while (true);
 
