@@ -87,6 +87,7 @@ int main(int argc, char* argv[]){
 	bool isRunning = true;
 	SDL_Rect rect = { 0,0,600,600 };
 	SDL_Rect dstRect = { 0,0,200,200 };
+	SDL_Texture* greenSquare=getPicture("img\\GreenSquare.bmp");
 	int msx, msy;
 	while (isRunning) {
 		while (SDL_PollEvent(&sdlEvent)) {
@@ -102,6 +103,12 @@ int main(int argc, char* argv[]){
 				msx = sdlEvent.motion.x/200;
 				msy = sdlEvent.motion.y/200;
 				cout << msx << ' ' << msy << endl;
+				dstRect.x = msx * 200;
+				dstRect.y = msy * 200;
+				SDL_RenderCopy(MainRenderer, greenSquare, NULL, &dstRect);
+				SDL_RenderPresent(MainRenderer);
+				SDL_RenderClear(MainRenderer);
+				
 
 			default:break;
 			}
@@ -109,5 +116,6 @@ int main(int argc, char* argv[]){
 
 
 	}
+	
 	return 0;
 }
