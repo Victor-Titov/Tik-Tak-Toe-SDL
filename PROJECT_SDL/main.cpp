@@ -81,10 +81,32 @@ int main(int argc, char* argv[]){
 	SDL_RenderDrawLine(MainRenderer, 200, 0, 200, 600);
 	SDL_RenderDrawLine(MainRenderer, 400, 0, 400, 600);
 	
+	
 	SDL_RenderPresent(MainRenderer);
-	while (true);
+	SDL_Event sdlEvent;
+	bool isRunning = true;
+	SDL_Rect rect = { 0,0,600,600 };
+	int msx, msy;
+	while (isRunning) {
+		while (SDL_PollEvent(&sdlEvent)) {
+			switch (sdlEvent.type) {
+			case SDL_QUIT:isRunning = false; break;
+			case SDL_KEYDOWN:
+				if (sdlEvent.key.keysym.scancode == SDL_Scancode(41)) {
+					isRunning = false;
+				}
+				break;
+
+			case SDL_MOUSEMOTION:
+				msx = sdlEvent.motion.x/200;
+				msy = sdlEvent.motion.y/200;
+				cout << msx << ' ' << msy << endl;
+
+			default:break;
+			}
+		}
 
 
-
+	}
 	return 0;
 }
