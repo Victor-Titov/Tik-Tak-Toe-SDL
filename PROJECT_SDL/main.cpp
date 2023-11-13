@@ -86,6 +86,7 @@ int main(int argc, char* argv[]){
 	SDL_Event sdlEvent;
 	bool isRunning = true;
 	SDL_Rect rect = { 0,0,600,600 };
+	SDL_Rect dstRect = { 0,0,200,200 };
 	int msx, msy;
 	while (isRunning) {
 		while (SDL_PollEvent(&sdlEvent)) {
