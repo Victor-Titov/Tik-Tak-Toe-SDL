@@ -74,9 +74,12 @@ int main(int argc, char* argv[]){
 	SDL_RenderDrawLine(MainRenderer, 600, 0, 600, 600);
 	SDL_RenderDrawLine(MainRenderer, 0, 0, 600, 0);
 	SDL_RenderDrawLine(MainRenderer, 0, 600, 600, 600);
-
 	
+	SDL_RenderDrawLine(MainRenderer, 0, 200, 600, 200);
+	SDL_RenderDrawLine(MainRenderer, 0, 400, 600, 400);
 
+	SDL_RenderDrawLine(MainRenderer, 200, 0, 200, 600);
+	SDL_RenderDrawLine(MainRenderer, 400, 0, 400, 600);
 	
 	SDL_RenderPresent(MainRenderer);
 	while (true);
