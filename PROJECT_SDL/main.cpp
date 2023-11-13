@@ -57,6 +57,10 @@ bool mousePosCheck(SDL_Rect rect, int mx, int my) {
 }
 
 void drawGrid(SDL_Renderer* MainRenderer) {
+	SDL_SetRenderDrawColor(MainRenderer, 0, 0, 0, 255);
+	SDL_RenderClear(MainRenderer);
+	SDL_SetRenderDrawColor(MainRenderer, 255, 255, 255, 255);
+	
 	SDL_RenderDrawLine(MainRenderer, 0, 0, 0, 600);
 	SDL_RenderDrawLine(MainRenderer, 600, 0, 600, 600);
 	SDL_RenderDrawLine(MainRenderer, 0, 0, 600, 0);
@@ -105,12 +109,16 @@ int main(int argc, char* argv[]){
 			case SDL_MOUSEMOTION:
 				msx = sdlEvent.motion.x/200;
 				msy = sdlEvent.motion.y/200;
+				if (msx > 2) {msx = 2;}
+				if (msy > 2) {msy = 2;}
 				cout << msx << ' ' << msy << endl;
 				dstRect.x = msx * 200;
 				dstRect.y = msy * 200;
 				SDL_RenderCopy(MainRenderer, greenSquare, NULL, &dstRect);
 				SDL_RenderPresent(MainRenderer);
+
 				SDL_RenderClear(MainRenderer);
+				drawGrid(MainRenderer);
 				
 
 			default: break;
