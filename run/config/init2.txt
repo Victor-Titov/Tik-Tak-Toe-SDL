@@ -1,0 +1,4 @@
+Image_name: img\\zelda.bmp
+zelda_dstRect: 100 100 200 200
+zelda_srcRect: 0 0 96 104
+imageValues: 960 832 8 10
