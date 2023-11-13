@@ -56,9 +56,10 @@ bool mousePosCheck(SDL_Rect rect, int mx, int my) {
 
 }
 
-void drawGrid(SDL_Renderer* MainRenderer) {
-	SDL_SetRenderDrawColor(MainRenderer, 0, 0, 0, 255);
-	SDL_RenderClear(MainRenderer);
+
+
+void drawGridBgrless(SDL_Renderer* MainRenderer) {
+	
 	SDL_SetRenderDrawColor(MainRenderer, 255, 255, 255, 255);
 	
 	SDL_RenderDrawLine(MainRenderer, 0, 0, 0, 600);
@@ -71,6 +72,16 @@ void drawGrid(SDL_Renderer* MainRenderer) {
 
 	SDL_RenderDrawLine(MainRenderer, 200, 0, 200, 600);
 	SDL_RenderDrawLine(MainRenderer, 400, 0, 400, 600);
+}
+void drawBackgound(SDL_Renderer* MainRenderer) {
+	SDL_SetRenderDrawColor(MainRenderer, 0, 0, 0, 255);
+	SDL_RenderClear(MainRenderer);
+
+}
+
+void drawGrid(SDL_Renderer* MainRenderer) {
+	drawBackgound(MainRenderer);
+	drawGridBgrless(MainRenderer);
 }
 
 int main(int argc, char* argv[]){
@@ -115,10 +126,11 @@ int main(int argc, char* argv[]){
 				dstRect.x = msx * 200;
 				dstRect.y = msy * 200;
 				SDL_RenderCopy(MainRenderer, greenSquare, NULL, &dstRect);
+				drawGridBgrless(MainRenderer);
 				SDL_RenderPresent(MainRenderer);
-
+				
 				SDL_RenderClear(MainRenderer);
-				drawGrid(MainRenderer);
+				drawBackgound(MainRenderer);
 				
 
 			default: break;
