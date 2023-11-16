@@ -7,7 +7,7 @@ using namespace std;
 
 SDL_Window* MainWindow;
 SDL_Renderer* MainRenderer;
-
+int grid[3][3];
 
 void improveRenderer() {
 	SDL_DisplayMode DM;
@@ -79,6 +79,30 @@ void drawBackgound(SDL_Renderer* MainRenderer) {
 
 }
 
+int winCheck(int lpmx, int lpmy, int lpmp) {
+	grid[lpmx][lpmy] = lpmp;
+	if (grid[lpmx][0] == grid[lpmx][1] && grid[lpmx][1] == grid[lpmx][2]) {
+		return lpmp;
+	}
+	if (grid[0][lpmy] == grid[1][lpmy] && grid[1][lpmy] == grid[2][lpmy]) {
+		return lpmp;
+	}
+
+	if (lpmx == lpmy) {
+		if (grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) {
+			return lpmp;
+		}
+	}
+
+	if (lpmx == 2 - lpmy) {
+		if (grid[2][0] == grid[1][1] && grid[1][1] == grid[0][2]) {
+			return lpmp;
+		}
+	}
+
+	return 0;
+
+}
 
 
 int main(int argc, char* argv[]){
