@@ -8,7 +8,7 @@ using namespace std;
 SDL_Window* MainWindow;
 SDL_Renderer* MainRenderer;
 int grid[3][3];
-
+int left_valid_moves = 9;
 void improveRenderer() {
 	SDL_DisplayMode DM;
 	SDL_GetCurrentDisplayMode(0, &DM);
@@ -81,6 +81,7 @@ void drawBackgound(SDL_Renderer* MainRenderer) {
 
 int winCheck(int lpmx, int lpmy, int lpmp) {
 	grid[lpmx][lpmy] = lpmp;
+	left_valid_moves--;
 	if (grid[lpmx][0] == grid[lpmx][1] && grid[lpmx][1] == grid[lpmx][2]) {
 		return lpmp;
 	}
@@ -98,6 +99,10 @@ int winCheck(int lpmx, int lpmy, int lpmp) {
 		if (grid[2][0] == grid[1][1] && grid[1][1] == grid[0][2]) {
 			return lpmp;
 		}
+	}
+
+	if (left_valid_moves == 0) {
+		return 3;
 	}
 
 	return 0;
