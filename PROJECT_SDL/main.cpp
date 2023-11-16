@@ -138,6 +138,10 @@ int main(int argc, char* argv[]){
 	SDL_Rect rect = { 0,0,600,600 };
 	SDL_Rect dstRect = { 0,0,200,200 };
 	SDL_Texture* greenSquare=getPicture("img\\GreenSquare.bmp");
+	SDL_Texture* xTexture = getPicture("img\\xche.bmp");
+	SDL_Texture* cTexture = getPicture("img\\circle.bmp");
+	SDL_Rect xRect = { 0, 0, 200, 200 };
+	SDL_Rect cRect = { 0, 0, 200, 200 };
 	int msx, msy;
 	while (isRunning) {
 		while (SDL_PollEvent(&sdlEvent)) {
@@ -163,7 +167,29 @@ int main(int argc, char* argv[]){
 				
 				SDL_RenderClear(MainRenderer);
 				drawBackgound(MainRenderer);
-				
+
+			case SDL_BUTTON_LEFT:
+				xTexture = getPicture("img\\xche.bmp");
+				msx = sdlEvent.motion.x/200;
+				msy = sdlEvent.motion.y/200;
+				xRect.x = msx * 200;
+				xRect.y = msy * 200;
+				SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
+				drawGrid(MainRenderer);
+				SDL_RenderPresent(MainRenderer);
+				SDL_DestroyTexture(xTexture);
+
+			case SDL_BUTTON_RIGHT:
+				xTexture = getPicture("img\\circle.bmp");
+				msx = sdlEvent.motion.x / 200;
+				msy = sdlEvent.motion.y / 200;
+				cRect.x = msx * 200;
+				cRect.y = msy * 200;
+				SDL_RenderCopy(MainRenderer, cTexture, nullptr, &cRect);
+				drawGrid(MainRenderer);
+				SDL_RenderPresent(MainRenderer);
+				SDL_DestroyTexture(cTexture);
+
 
 			default: break;
 			}
