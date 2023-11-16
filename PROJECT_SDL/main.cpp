@@ -96,7 +96,17 @@ int main(int argc, char* argv[]){
 	SDL_SetRenderDrawColor(MainRenderer, 255, 255, 255, 200);
 	
 	drawGrid(MainRenderer);
+
+
 	drawBackgound(MainRenderer);
+	
+
+	drawBackgound(MainRenderer);
+
+
+
+	drawBackgound(MainRenderer);
+
 
 	SDL_RenderPresent(MainRenderer);
 	SDL_Event sdlEvent;
