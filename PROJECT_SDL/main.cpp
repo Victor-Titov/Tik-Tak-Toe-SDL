@@ -129,14 +129,6 @@ int main(int argc, char* argv[]){
 
 	drawBackgound(MainRenderer);
 	
-
-	drawBackgound(MainRenderer);
-
-
-	
-	drawBackgound(MainRenderer);
-
-
 	SDL_RenderPresent(MainRenderer);
 	SDL_Event sdlEvent;
 	bool isRunning = true;
