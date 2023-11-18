@@ -34,7 +34,7 @@ SDL_Texture* getPicture(string fileName) {
 	if (tempTexture == nullptr) {
 		loadingSurface = SDL_LoadBMP("img\\Error.bmp");
 		tempTexture = SDL_CreateTextureFromSurface(MainRenderer, loadingSurface);
-		SDL_RenderCopy(MainRenderer, tempTexture, NULL, NULL);
+		SDL_RenderCopy(MainRenderer, tempTexture, nullptr, nullptr);
 
 		SDL_RenderPresent(MainRenderer);
 		SDL_FreeSurface(loadingSurface);
@@ -166,7 +166,7 @@ int main(int argc, char* argv[]){
 				cout << msx << ' ' << msy << endl;
 				dstRect.x = msx * 200;
 				dstRect.y = msy * 200;
-				SDL_RenderCopy(MainRenderer, greenSquare, NULL, &dstRect);
+				SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect);
 				drawGrid(MainRenderer);
 				SDL_RenderPresent(MainRenderer);
 				
