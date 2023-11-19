@@ -108,7 +108,10 @@ int winCheck(int lpmx, int lpmy, int lpmp) {
 	return 0;
 
 }
-
+void drawElements() {
+	SDL_Texture* circle = getPicture("img\\circle.bmp");
+	SDL_Texture* cross = getPicture("img\\xche.bmp");
+}
 
 int main(int argc, char* argv[]){
 	
@@ -184,7 +187,7 @@ int main(int argc, char* argv[]){
 				SDL_RenderPresent(MainRenderer);
 				SDL_DestroyTexture(xTexture);
 				break;
-
+/*
 			case SDL_BUTTON_RIGHT:
 				xTexture = getPicture("img\\circle.bmp");
 				
@@ -196,7 +199,7 @@ int main(int argc, char* argv[]){
 				SDL_DestroyTexture(cTexture);
 				break;
 
-
+*/
 			default: break;
 			}
 		}
