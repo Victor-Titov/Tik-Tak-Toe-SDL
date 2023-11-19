@@ -81,8 +81,8 @@ void drawBackgound(SDL_Renderer* MainRenderer) {
 }
 
 int winCheck(int lpmx, int lpmy, int lpmp) {
-	grid[lpmx][lpmy] = lpmp;
-	left_valid_moves--;
+	
+	
 	if (grid[lpmx][0] == grid[lpmx][1] && grid[lpmx][1] == grid[lpmx][2]) {
 		return lpmp;
 	}
@@ -109,9 +109,25 @@ int winCheck(int lpmx, int lpmy, int lpmp) {
 	return 0;
 
 }
-void drawElements() {
+void drawElements(SDL_Renderer* MainRenderer) {
 	SDL_Texture* circle = getPicture("img\\circle.bmp");
 	SDL_Texture* cross = getPicture("img\\xche.bmp");
+	SDL_Rect PRect = { 0,0,200,200 };
+	for (int i = 0; i < 3; i++) {
+		for(int j = 0; j < 3; j++) {
+			if (grid[j][i] == 1) {
+				SDL_RenderCopy(MainRenderer, cross, NULL, &PRect);
+			}
+			if (grid[j][i] == 2) {
+				SDL_RenderCopy(MainRenderer, circle, NULL, &PRect);
+			}
+			PRect.x += 200;
+
+		}
+		PRect.x = 0;
+		PRect.y += 200;
+	}
+
 }
 
 int main(int argc, char* argv[]) {
@@ -149,6 +165,9 @@ int main(int argc, char* argv[]) {
 	SDL_Texture* greenSquare = getPicture("img\\GreenSquare.bmp");
 	SDL_Texture* xTexture = getPicture("img\\xche.bmp");
 	SDL_Texture* cTexture = getPicture("img\\circle.bmp");
+	SDL_Texture* drawScreen = getPicture("img\\drawScreen.bmp");
+	SDL_Texture* p1winScreen = getPicture("img\\p1winScreen.bmp");
+	SDL_Texture * p2winScreen = getPicture("img\\p2winScreen.bmp");
 	SDL_Rect xRect = { 0, 0, 200, 200 };
 	SDL_Rect cRect = { 0, 0, 200, 200 };
 	int msx, msy,turn=1;
@@ -167,35 +186,66 @@ int main(int argc, char* argv[]) {
 					msy = sdlEvent.motion.y / 200;
 					if (msx > 2) { msx = 2; }
 					if (msy > 2) { msy = 2; }
-					cout << msx << ' ' << msy << endl;
+					//cout << msx << ' ' << msy << endl;
 					dstRect.x = msx * 200;
 					dstRect.y = msy * 200;
 					if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
+					drawElements(MainRenderer);
 					drawGrid(MainRenderer);
 					SDL_RenderPresent(MainRenderer);
-
 					SDL_RenderClear(MainRenderer);
 					drawBackgound(MainRenderer);
 					break;
 
 				case SDL_MOUSEBUTTONDOWN:
-					grid[msx][msy] = turn;
-					if (turn == 1) {
-						xTexture = getPicture("img\\xche.bmp");
-						turn = 2;
-					}
-					else {
-						xTexture = getPicture("img\\circle.bmp");
-						turn = 1;
-					}
+					if (grid[msx][msy] == 0) {
+						grid[msx][msy] = turn;
+						left_valid_moves--;
+						cout << winCheck(msx, msy, turn)<<' ' << left_valid_moves << endl;
+						if (winCheck(msx, msy, turn) == 3) {
+							SDL_RenderCopy(MainRenderer, drawScreen, nullptr, nullptr);
+							
+							SDL_RenderPresent(MainRenderer);
+							SDL_RenderClear(MainRenderer);
+							while (true);
+						}
+						if (winCheck(msx, msy, turn) == 1) {
+							SDL_RenderCopy(MainRenderer, p1winScreen, nullptr, nullptr);
+							SDL_RenderPresent(MainRenderer);
+							SDL_RenderClear(MainRenderer);
+							while (true);
+						}
+						if (winCheck(msx, msy, turn) == 2) {
+							SDL_RenderCopy(MainRenderer, p2winScreen, nullptr, nullptr);
+							SDL_RenderPresent(MainRenderer);
+							SDL_RenderClear(MainRenderer);
+							while (true);
+						}
 
+
+						if (turn == 1) {
+							xTexture = getPicture("img\\xche.bmp");
+							turn = 2;
+						}
+						else {
+							xTexture = getPicture("img\\circle.bmp");
+							turn = 1;
+						}
+						xRect.x = msx * 200;
+						xRect.y = msy * 200;
+						SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
+						
+						drawElements(MainRenderer);
+						drawGrid(MainRenderer);
+						SDL_RenderPresent(MainRenderer);
+						SDL_DestroyTexture(xTexture);
+
+						
+
+					}
 					
-					xRect.x = msx * 200;
-					xRect.y = msy * 200;
-					SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
-					drawGrid(MainRenderer);
-					SDL_RenderPresent(MainRenderer);
-					SDL_DestroyTexture(xTexture);
+
+
 					break;
 /*
 					case SDL_BUTTON_RIGHT:
@@ -213,6 +263,7 @@ int main(int argc, char* argv[]) {
 				default: break;
 			}
 		}
+		
 
 
 	}
