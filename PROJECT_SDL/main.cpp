@@ -172,6 +172,7 @@ int main(int argc, char* argv[]){
 				
 				SDL_RenderClear(MainRenderer);
 				drawBackgound(MainRenderer);
+				break;
 
 			case SDL_BUTTON_LEFT:
 				xTexture = getPicture("img\\xche.bmp");
@@ -183,6 +184,7 @@ int main(int argc, char* argv[]){
 				drawGrid(MainRenderer);
 				SDL_RenderPresent(MainRenderer);
 				SDL_DestroyTexture(xTexture);
+				break;
 
 			case SDL_BUTTON_RIGHT:
 				xTexture = getPicture("img\\circle.bmp");
@@ -194,6 +196,7 @@ int main(int argc, char* argv[]){
 				drawGrid(MainRenderer);
 				SDL_RenderPresent(MainRenderer);
 				SDL_DestroyTexture(cTexture);
+				break;
 
 
 			default: break;
