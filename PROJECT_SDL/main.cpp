@@ -166,7 +166,7 @@ int main(int argc, char* argv[]){
 				cout << msx << ' ' << msy << endl;
 				dstRect.x = msx * 200;
 				dstRect.y = msy * 200;
-				SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect);
+				if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
 				drawGrid(MainRenderer);
 				SDL_RenderPresent(MainRenderer);
 				
@@ -174,10 +174,9 @@ int main(int argc, char* argv[]){
 				drawBackgound(MainRenderer);
 				break;
 
-			case SDL_BUTTON_LEFT:
+			case SDL_MOUSEBUTTONDOWN:
 				xTexture = getPicture("img\\xche.bmp");
-				msx = sdlEvent.motion.x/200;
-				msy = sdlEvent.motion.y/200;
+				grid[msx][msy] = 1;
 				xRect.x = msx * 200;
 				xRect.y = msy * 200;
 				SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
@@ -188,8 +187,7 @@ int main(int argc, char* argv[]){
 
 			case SDL_BUTTON_RIGHT:
 				xTexture = getPicture("img\\circle.bmp");
-				msx = sdlEvent.motion.x / 200;
-				msy = sdlEvent.motion.y / 200;
+				
 				cRect.x = msx * 200;
 				cRect.y = msy * 200;
 				SDL_RenderCopy(MainRenderer, cTexture, nullptr, &cRect);
