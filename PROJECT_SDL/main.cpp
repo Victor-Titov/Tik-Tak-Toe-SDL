@@ -77,6 +77,7 @@ void drawBackgound(SDL_Renderer* MainRenderer) {
 	SDL_SetRenderDrawColor(MainRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(MainRenderer);
 
+
 }
 
 int winCheck(int lpmx, int lpmy, int lpmp) {
@@ -150,57 +151,66 @@ int main(int argc, char* argv[]) {
 	SDL_Texture* cTexture = getPicture("img\\circle.bmp");
 	SDL_Rect xRect = { 0, 0, 200, 200 };
 	SDL_Rect cRect = { 0, 0, 200, 200 };
-	int msx, msy;
+	int msx, msy,turn=1;
 	while (isRunning) {
 		while (SDL_PollEvent(&sdlEvent)) {
 			switch (sdlEvent.type) {
-			case SDL_QUIT:isRunning = false; break;
-			case SDL_KEYDOWN:
-				if (sdlEvent.key.keysym.scancode == SDL_Scancode(41)) {
-					isRunning = false;
-				}
-				break;
+				case SDL_QUIT:isRunning = false; break;
+				case SDL_KEYDOWN:
+					if (sdlEvent.key.keysym.scancode == SDL_Scancode(41)) {
+						isRunning = false;
+					}
+					break;
 
-			case SDL_MOUSEMOTION:
-				msx = sdlEvent.motion.x / 200;
-				msy = sdlEvent.motion.y / 200;
-				if (msx > 2) { msx = 2; }
-				if (msy > 2) { msy = 2; }
-				cout << msx << ' ' << msy << endl;
-				dstRect.x = msx * 200;
-				dstRect.y = msy * 200;
-				if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
-				drawGrid(MainRenderer);
-				SDL_RenderPresent(MainRenderer);
+				case SDL_MOUSEMOTION:
+					msx = sdlEvent.motion.x / 200;
+					msy = sdlEvent.motion.y / 200;
+					if (msx > 2) { msx = 2; }
+					if (msy > 2) { msy = 2; }
+					cout << msx << ' ' << msy << endl;
+					dstRect.x = msx * 200;
+					dstRect.y = msy * 200;
+					if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
+					drawGrid(MainRenderer);
+					SDL_RenderPresent(MainRenderer);
 
-				SDL_RenderClear(MainRenderer);
-				drawBackgound(MainRenderer);
-				break;
+					SDL_RenderClear(MainRenderer);
+					drawBackgound(MainRenderer);
+					break;
 
-			case SDL_MOUSEBUTTONDOWN:
-				xTexture = getPicture("img\\xche.bmp");
-				grid[msx][msy] = 1;
-				xRect.x = msx * 200;
-				xRect.y = msy * 200;
-				SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
-				drawGrid(MainRenderer);
-				SDL_RenderPresent(MainRenderer);
-				SDL_DestroyTexture(xTexture);
-				break;
-				/*
-						case SDL_BUTTON_RIGHT:
-								xTexture = getPicture("img\\circle.bmp");
+				case SDL_MOUSEBUTTONDOWN:
+					grid[msx][msy] = turn;
+					if (turn == 1) {
+						xTexture = getPicture("img\\xche.bmp");
+						turn = 2;
+					}
+					else {
+						xTexture = getPicture("img\\circle.bmp");
+						turn = 1;
+					}
 
-								cRect.x = msx * 200;
-								cRect.y = msy * 200;
-								SDL_RenderCopy(MainRenderer, cTexture, nullptr, &cRect);
-								drawGrid(MainRenderer);
-								SDL_RenderPresent(MainRenderer);
-								SDL_DestroyTexture(cTexture);
-								break;
+					
+					xRect.x = msx * 200;
+					xRect.y = msy * 200;
+					SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
+					drawGrid(MainRenderer);
+					SDL_RenderPresent(MainRenderer);
+					SDL_DestroyTexture(xTexture);
+					break;
+/*
+					case SDL_BUTTON_RIGHT:
+							xTexture = getPicture("img\\circle.bmp");
 
-				*/
-			default: break;
+							cRect.x = msx * 200;
+							cRect.y = msy * 200;
+							SDL_RenderCopy(MainRenderer, cTexture, nullptr, &cRect);
+							drawGrid(MainRenderer);
+							SDL_RenderPresent(MainRenderer);
+							SDL_DestroyTexture(cTexture);
+							break;
+
+*/
+				default: break;
 			}
 		}
 
