@@ -227,21 +227,21 @@ int main(int argc, char* argv[]) {
 
 
 						if (turn == 1) {
-							xTexture = getPicture("img\\xche.bmp");
+							
 							turn = 2;
 						}
 						else {
-							xTexture = getPicture("img\\circle.bmp");
+							
 							turn = 1;
 						}
 						xRect.x = msx * 200;
 						xRect.y = msy * 200;
-						SDL_RenderCopy(MainRenderer, xTexture, nullptr, &xRect);
+						
 						
 						drawElements(MainRenderer);
 						drawGrid(MainRenderer);
 						SDL_RenderPresent(MainRenderer);
-						SDL_DestroyTexture(xTexture);
+						
 
 						
 
