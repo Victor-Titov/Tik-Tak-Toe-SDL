@@ -207,19 +207,22 @@ int main(int argc, char* argv[]) {
 							
 							SDL_RenderPresent(MainRenderer);
 							SDL_RenderClear(MainRenderer);
-							while (true);
+							isRunning = false;
+							SDL_Delay(5000);
 						}
 						if (winCheck(msx, msy, turn) == 1) {
 							SDL_RenderCopy(MainRenderer, p1winScreen, nullptr, nullptr);
 							SDL_RenderPresent(MainRenderer);
 							SDL_RenderClear(MainRenderer);
-							while (true);
+							isRunning = false;
+							SDL_Delay(5000);
 						}
 						if (winCheck(msx, msy, turn) == 2) {
 							SDL_RenderCopy(MainRenderer, p2winScreen, nullptr, nullptr);
 							SDL_RenderPresent(MainRenderer);
 							SDL_RenderClear(MainRenderer);
-							while (true);
+							isRunning = false;
+							SDL_Delay(5000);
 						}
 
 
