@@ -250,19 +250,8 @@ int main(int argc, char* argv[]) {
 
 
 					break;
-/*
-					case SDL_BUTTON_RIGHT:
-							xTexture = getPicture("img\\circle.bmp");
+	
 
-							cRect.x = msx * 200;
-							cRect.y = msy * 200;
-							SDL_RenderCopy(MainRenderer, cTexture, nullptr, &cRect);
-							drawGrid(MainRenderer);
-							SDL_RenderPresent(MainRenderer);
-							SDL_DestroyTexture(cTexture);
-							break;
-
-*/
 				default: break;
 			}
 		}
