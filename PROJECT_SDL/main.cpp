@@ -8,6 +8,7 @@ using namespace std;
 SDL_Window* MainWindow;
 SDL_Renderer* MainRenderer;
 int grid[3][3];
+
 int left_valid_moves = 9;
 void improveRenderer() {
 	SDL_DisplayMode DM;
@@ -19,7 +20,7 @@ void improveRenderer() {
 	if (SDL_SetWindowFullscreen(MainWindow, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0) {
 		cout << "SDL Renderer imprude failed" << SDL_GetError();
 	}
-
+	
 	SDL_RenderSetLogicalSize(MainRenderer, 601, 601);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
@@ -39,7 +40,9 @@ SDL_Texture* getPicture(string fileName) {
 		SDL_RenderPresent(MainRenderer);
 		SDL_FreeSurface(loadingSurface);
 
-		while (true);
+		while (true) {
+			cout << "ERROR! Picture not found\n";
+		}
 
 
 	}
@@ -47,6 +50,8 @@ SDL_Texture* getPicture(string fileName) {
 	SDL_FreeSurface(loadingSurface);
 	return tempTexture;
 }
+
+
 
 bool mousePosCheck(SDL_Rect rect, int mx, int my) {
 	if (mx >= rect.x && mx <= rect.x + rect.w && my >= rect.y && my <= rect.y + rect.h) {
@@ -109,9 +114,8 @@ int winCheck(int lpmx, int lpmy, int lpmp) {
 	return 0;
 
 }
-void drawElements(SDL_Renderer* MainRenderer) {
-	SDL_Texture* circle = getPicture("img\\circle.bmp");
-	SDL_Texture* cross = getPicture("img\\xche.bmp");
+void drawElements(SDL_Renderer* MainRenderer, SDL_Texture* circle, SDL_Texture* cross) {
+
 	SDL_Rect PRect = { 0,0,200,200 };
 	for (int i = 0; i < 3; i++) {
 		for(int j = 0; j < 3; j++) {
@@ -168,6 +172,8 @@ int main(int argc, char* argv[]) {
 	SDL_Texture* drawScreen = getPicture("img\\drawScreen.bmp");
 	SDL_Texture* p1winScreen = getPicture("img\\p1winScreen.bmp");
 	SDL_Texture * p2winScreen = getPicture("img\\p2winScreen.bmp");
+	SDL_Texture* circle = getPicture("img\\circle.bmp");
+	SDL_Texture* cross = getPicture("img\\xche.bmp");
 	SDL_Rect xRect = { 0, 0, 200, 200 };
 	SDL_Rect cRect = { 0, 0, 200, 200 };
 	int msx, msy,turn=1;
@@ -189,19 +195,14 @@ int main(int argc, char* argv[]) {
 					//cout << msx << ' ' << msy << endl;
 					dstRect.x = msx * 200;
 					dstRect.y = msy * 200;
-					if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
-					drawElements(MainRenderer);
-					drawGrid(MainRenderer);
-					SDL_RenderPresent(MainRenderer);
-					SDL_RenderClear(MainRenderer);
-					drawBackgound(MainRenderer);
+					
 					break;
 
 				case SDL_MOUSEBUTTONDOWN:
 					if (grid[msx][msy] == 0) {
 						grid[msx][msy] = turn;
 						left_valid_moves--;
-						cout << winCheck(msx, msy, turn)<<' ' << left_valid_moves << endl;
+						//cout << winCheck(msx, msy, turn)<<' ' << left_valid_moves << endl;
 						if (winCheck(msx, msy, turn) == 3) {
 							SDL_RenderCopy(MainRenderer, drawScreen, nullptr, nullptr);
 							
@@ -238,7 +239,7 @@ int main(int argc, char* argv[]) {
 						xRect.y = msy * 200;
 						
 						
-						drawElements(MainRenderer);
+						drawElements(MainRenderer, circle, cross);
 						drawGrid(MainRenderer);
 						SDL_RenderPresent(MainRenderer);
 						
@@ -257,6 +258,12 @@ int main(int argc, char* argv[]) {
 		}
 		
 
+		drawElements(MainRenderer, circle, cross);
+		drawGrid(MainRenderer);
+		SDL_RenderPresent(MainRenderer);
+		SDL_RenderClear(MainRenderer);
+		drawBackgound(MainRenderer);
+		if (grid[msx][msy] == 0) { SDL_RenderCopy(MainRenderer, greenSquare, nullptr, &dstRect); }
 
 	}
 
